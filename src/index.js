@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+/*
 class Square extends React.Component {
 
     constructor(props) {
@@ -15,7 +16,7 @@ class Square extends React.Component {
         this.clickBehaviour = ::this.clickBehaviour
 
         The below line is currently redundant as 'clickBehaviour' is an arrow function.
-        */
+        /
 
        this.clickBehaviour = this.clickBehaviour.bind(this);
     }
@@ -31,6 +32,15 @@ class Square extends React.Component {
     clickBehaviour = () => {
         this.props.onClick();
     }
+}
+*/
+
+function Square(props) {
+    return (
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
+    );
 }
 
 class Board extends React.Component {
