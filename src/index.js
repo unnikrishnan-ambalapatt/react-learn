@@ -6,39 +6,51 @@ class Square extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            value: null
-        };
         /*
         Use the below line to bind 'this' to the function if clickBehaviour() is defined 
         as a normal (non-arrow) function. This is because util arrow functions,
         every new function defined its own 'this' value.
-        
-        this.clickBehaviour = this.clickBehaviour.bind(this);
 
         From ES7+ (ES2016), this can also be written as (syntactic sugar):
         this.clickBehaviour = ::this.clickBehaviour
+
+        The below line is currently redundant as 'clickBehaviour' is an arrow function.
         */
+
+       this.clickBehaviour = this.clickBehaviour.bind(this);
     }
 
     render() {
         return (
             <button className="square" onClick={this.clickBehaviour}>
-                {this.state.value}
+                {this.props.value}
             </button>
         );
     }
 
     clickBehaviour = () => {
-        this.setState({
-            value: 'X'
-        });
+        this.props.onClick();
     }
 }
 
 class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null)
+        };
+    }
+
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({ squares: squares });
+    }
+
     renderSquare(i) {
-        return <Square value={i} />;
+        return (<Square
+            value={this.state.squares[i]}
+            onClick={() => { this.handleClick(i) }} />);
     }
 
     render() {
