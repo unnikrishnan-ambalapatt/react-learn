@@ -3,12 +3,36 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: null
+        };
+        /*
+        Use the below line to bind 'this' to the function if clickBehaviour() is defined 
+        as a normal (non-arrow) function. This is because util arrow functions,
+        every new function defined its own 'this' value.
+        
+        this.clickBehaviour = this.clickBehaviour.bind(this);
+
+        From ES7+ (ES2016), this can also be written as (syntactic sugar):
+        this.clickBehaviour = ::this.clickBehaviour
+        */
+    }
+
     render() {
         return (
-            <button className="square">
-                {this.props.value}
+            <button className="square" onClick={this.clickBehaviour}>
+                {this.state.value}
             </button>
         );
+    }
+
+    clickBehaviour = () => {
+        this.setState({
+            value: 'X'
+        });
     }
 }
 
